@@ -8,12 +8,12 @@ public class Board {
     public static final char[] DIR_CHAR = {'U', 'D', 'L', 'R'};
     private static final int[] DR = {-1, 1,  0, 0};
     private static final int[] DC = { 0, 0, -1, 1};
-    private final int N;           
+    private final int N;
     private final int M;           
     private final char[][] grid;   
     private final int[][] cost;    
-    private final int[] start;     
-    private final int[] goal;      
+    private final int[] start;
+    private final int[] goal;
     private final int numCheckpoints; 
     public Board(int N, int M, char[][] grid, int[][] cost) {
         this.N = N;
@@ -41,17 +41,13 @@ public class Board {
         this.goal  = foundGoal;
         this.numCheckpoints = maxCheckpoint + 1; 
     }
-
-    
-
     public static class SlideResult {
-        public final boolean valid;      
-        public final int endRow;         
+        public final boolean valid;
+        public final int endRow;
         public final int endCol;
-        public final int moveCost;       
-        public final int nextCheckpoint; 
-        
-        public final int[] tilesRow;     
+        public final int moveCost;
+        public final int nextCheckpoint;
+        public final int[] tilesRow;
         public final int[] tilesCol;     
         public SlideResult() {
             this.valid = false;
@@ -62,7 +58,6 @@ public class Board {
             this.tilesRow = new int[0];
             this.tilesCol = new int[0];
         }
-
         public SlideResult(int endRow, int endCol, int moveCost,
                            int[] tilesRow, int[] tilesCol) {
             this.valid = true;
@@ -93,6 +88,7 @@ public class Board {
             int nextRow = curRow + dr;
             int nextCol = curCol + dc;
             if (nextRow < 0 || nextRow >= N || nextCol < 0 || nextCol >= M) {
+                // Keluar papan → game over
                 return new SlideResult();
             }
 
@@ -111,12 +107,10 @@ public class Board {
                 if (currentNextNeeded != -1 && checkpointNum != currentNextNeeded) {
                     return new SlideResult();
                 }
-
-                
                 if (currentNextNeeded != -1 && checkpointNum == currentNextNeeded) {
                     currentNextNeeded++;
                     if (currentNextNeeded >= numCheckpoints) {
-                        currentNextNeeded = -1; // semua checkpoint selesai
+                        currentNextNeeded = -1; 
                     }
                 }
             }
@@ -126,7 +120,7 @@ public class Board {
             tRow[stepCount] = curRow;
             tCol[stepCount] = curCol;
             stepCount++;
-            if (nextTile == 'O') {
+            if (nextTile == 'O' && currentNextNeeded == -1) {
                 int[] tr = java.util.Arrays.copyOf(tRow, stepCount);
                 int[] tc = java.util.Arrays.copyOf(tCol, stepCount);
                 return new SlideResult(curRow, curCol, totalCost, tr, tc);
