@@ -104,15 +104,17 @@ public class Board {
             }
             if (nextTile >= '0' && nextTile <= '9') {
                 int checkpointNum = nextTile - '0';
-                if (currentNextNeeded != -1 && checkpointNum != currentNextNeeded) {
+                if (currentNextNeeded != -1 && checkpointNum > currentNextNeeded) {
+                    // Future checkpoint visited out of order -> game over
                     return new SlideResult();
                 }
                 if (currentNextNeeded != -1 && checkpointNum == currentNextNeeded) {
                     currentNextNeeded++;
                     if (currentNextNeeded >= numCheckpoints) {
-                        currentNextNeeded = -1; 
+                        currentNextNeeded = -1;
                     }
                 }
+                // checkpointNum < currentNextNeeded: already visited, treat as normal tile
             }
             curRow = nextRow;
             curCol = nextCol;
@@ -120,7 +122,8 @@ public class Board {
             tRow[stepCount] = curRow;
             tCol[stepCount] = curCol;
             stepCount++;
-            if (nextTile == 'O' && currentNextNeeded == -1) {
+            if (nextTile == 'O') {
+                // O always stops the actor; win condition is checked by the search
                 int[] tr = java.util.Arrays.copyOf(tRow, stepCount);
                 int[] tc = java.util.Arrays.copyOf(tCol, stepCount);
                 return new SlideResult(curRow, curCol, totalCost, tr, tc);

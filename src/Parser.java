@@ -91,7 +91,7 @@ public class Parser {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.isEmpty()) {
+                if (!line.trim().isEmpty()) {
                     lines.add(line);
                 }
             }

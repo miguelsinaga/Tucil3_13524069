@@ -1,0 +1,19 @@
+# Compiled class files
+*.class
+
+# Jar files
+*.jar
+
+# IDE directories
+.idea/
+.vscode/
+*.iml
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Build output
+bin/
+out/
+build/
