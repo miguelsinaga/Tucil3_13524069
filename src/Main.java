@@ -202,7 +202,7 @@ public class Main {
     private static void printBanner() {
         System.out.println("========================================");
         System.out.println("    ICE SLIDING PUZZLE SOLVER");
-        System.out.println("    Tugas Kecil 3 — IF2211 STIMA");
+        System.out.println("    Tugas Kecil 3 - IF2211 STIMA");
         System.out.println("========================================");
     }
 }

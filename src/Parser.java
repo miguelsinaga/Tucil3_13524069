@@ -1,6 +1,7 @@
 package  src;
 import java.io.*;
 import java.util.*;
+import java.util.Arrays;
 
 public class Parser {
     public static Board parse(String filepath) throws IOException {
@@ -153,8 +154,8 @@ public class Parser {
     // buat debug
     public static void printSummary(Board board) {
         System.out.println("Ukuran papan : " + board.getN() + " x " + board.getM());
-        System.out.println("Posisi awal  : " + board.getStart());
-        System.out.println("Posisi tujuan: " + board.getGoal());
+        System.out.println("Posisi awal  : " + Arrays.toString(board.getStart()));
+        System.out.println("Posisi tujuan: " + Arrays.toString(board.getGoal()));
         System.out.println("Jumlah checkpoint: " + board.getNumCheckpoints());
         System.out.println("Grid:");
         board.printGrid(board.getGrid());
