@@ -32,9 +32,9 @@ public class Main {
             int algoChoice = 0;
             while (algoChoice < 1 || algoChoice > 3) {
                 System.out.println("\nPilih algoritma:");
-                System.out.println("  1. UCS  (Uniform Cost Search)");
+                System.out.println("  1. UCS (Uniform Cost Search)");
                 System.out.println("  2. GBFS (Greedy Best-First Search)");
-                System.out.println("  3. A*   (A-Star Search)");
+                System.out.println("  3. A* (A-Star Search)");
                 System.out.print("Pilihan (1-3): ");
                 try {
                     algoChoice = Integer.parseInt(sc.nextLine().trim());
@@ -50,9 +50,9 @@ public class Main {
                 int hInput = 0;
                 while (hInput < 1 || hInput > 3) {
                     System.out.println("\nPilih heuristik:");
-                    System.out.println("  1. H1 — Manhattan Distance");
-                    System.out.println("  2. H2 — Chebyshev Distance");
-                    System.out.println("  3. H3 — Minimum Moves (jumlah gerakan)");
+                    System.out.println("  1. H1");
+                    System.out.println("  2. H2");
+                    System.out.println("  3. H3");
                     System.out.print("Pilihan (1-3): ");
                     try {
                         hInput = Integer.parseInt(sc.nextLine().trim());
@@ -65,8 +65,7 @@ public class Main {
                 hChoice = hInput;
             }
 
-        
-            System.out.println("\nMencari solusi...");
+    
             SolveResult result = runSolver(board, algoChoice, hChoice);
 
             System.out.println();
@@ -89,7 +88,9 @@ public class Main {
                 String saveChoice = sc.nextLine().trim().toLowerCase();
                 if (saveChoice.equals("y")) {
                     System.out.print("Nama file output (contoh: output.txt): ");
-                    String outPath = sc.nextLine().trim();
+                    String fileName = sc.nextLine().trim();
+                    new java.io.File("output").mkdirs();
+                    String outPath = "output" + java.io.File.separator + fileName;
                     saveOutput(outPath, board, result, algoChoice, hChoice);
                 }
             }
@@ -98,8 +99,6 @@ public class Main {
             String again = sc.nextLine().trim().toLowerCase();
             continueProgram = again.equals("y");
         }
-
-        System.out.println("\nTerima kasih!");
         sc.close();
     }
 
@@ -150,7 +149,7 @@ public class Main {
                 pw.println("Waktu eksekusi : " + formatTime(result.timeMs));
                 pw.println();
 
-                pw.println("--- Detail Langkah ---");
+                pw.println("Detail Langkah");
                 java.util.List<State> history = result.stateHistory;
                 java.util.List<Integer> moves = result.moves;
 
@@ -200,9 +199,8 @@ public class Main {
     }
 
     private static void printBanner() {
-        System.out.println("========================================");
         System.out.println("    ICE SLIDING PUZZLE SOLVER");
         System.out.println("    Tugas Kecil 3 - IF2211 STIMA");
-        System.out.println("========================================");
+        System.out.println();
     }
 }
